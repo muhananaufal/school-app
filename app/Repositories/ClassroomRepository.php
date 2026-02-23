@@ -4,19 +4,20 @@ namespace App\Repositories;
 
 use App\Models\Classroom;
 use App\Repositories\Contracts\ClassroomRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ClassroomRepository implements ClassroomRepositoryInterface
 {
   // Mengambil semua data kelas murni tanpa relasi
   public function getAll()
   {
-    return Classroom::all();
+    return Classroom::orderBy('created_at', 'desc')->get();
   }
 
   // Mengambil semua kelas beserta relasi guru dan siswanya
-  public function getWithRelations()
+  public function getWithRelations(int $perPage = 5): LengthAwarePaginator
   {
-    return Classroom::with(['teachers', 'students'])->get();
+    return Classroom::with(['teachers', 'students'])->latest()->paginate($perPage);
   }
 
   // Mencari satu data kelas spesifik berdasarkan ID

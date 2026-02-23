@@ -4,13 +4,14 @@ namespace App\Repositories;
 
 use App\Models\Teacher;
 use App\Repositories\Contracts\TeacherRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class TeacherRepository implements TeacherRepositoryInterface
 {
   // Mengambil semua data guru beserta nama kelas tempat mengajar
-  public function getAll()
+  public function getAll(int $perPage = 10): LengthAwarePaginator
   {
-    return Teacher::with('classroom')->get();
+    return Teacher::with('classroom')->latest()->paginate($perPage);
   }
 
   // Mencari satu data guru spesifik berdasarkan ID

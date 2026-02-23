@@ -9,15 +9,15 @@ class ClassroomService
   public function __construct(protected ClassroomRepositoryInterface $repository) {}
 
   // Mengambil semua data kelas murni tanpa relasi
-  public function getAllClassrooms()
+  public function getAllClassrooms($perPage = 3)
   {
-    return $this->repository->getAll();
+    return $this->repository->getAll($perPage);
   }
 
   // Mengambil semua kelas beserta relasi guru dan siswanya
-  public function getClassroomsWithRelations()
+  public function getClassroomsWithRelations($perPage = 5)
   {
-    return $this->repository->getWithRelations();
+    return $this->repository->getWithRelations($perPage);
   }
 
   // Mencari satu data kelas spesifik berdasarkan ID

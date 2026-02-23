@@ -4,13 +4,14 @@ namespace App\Repositories;
 
 use App\Models\Student;
 use App\Repositories\Contracts\StudentRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class StudentRepository implements StudentRepositoryInterface
 {
   // Mengambil semua data siswa beserta nama kelasnya
-  public function getAll()
+  public function getAll(int $perPage = 10): LengthAwarePaginator
   {
-    return Student::with('classroom')->get();
+    return Student::with('classroom')->latest()->paginate($perPage);
   }
 
   // Mencari satu data siswa spesifik berdasarkan ID

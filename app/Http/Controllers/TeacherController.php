@@ -23,20 +23,20 @@ class TeacherController extends Controller
     public function store(TeacherRequest $request)
     {
         $this->service->createTeacher($request->validated());
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Guru berhasil ditambahkan!');
     }
 
     // Memperbarui data guru berdasarkan ID
     public function update(TeacherRequest $request, $id)
     {
         $this->service->updateTeacher($id, $request->validated());
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Guru berhasil diubah!');
     }
 
     // Menghapus data guru berdasarkan ID
     public function destroy($id)
     {
         $this->service->deleteTeacher($id);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Guru berhasil dihapus!');
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 interface TeacherRepositoryInterface
 {
   // Mengambil semua data guru beserta nama kelas tempat mengajar
-  public function getAll();
+  public function getAll(int $perPage = 10): LengthAwarePaginator;
 
   // Mencari satu data guru spesifik berdasarkan ID
   public function findById($id);

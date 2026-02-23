@@ -9,9 +9,9 @@ class StudentService
   public function __construct(protected StudentRepositoryInterface $repository) {}
 
   // Mengambil semua data siswa beserta nama kelasnya
-  public function getAllStudents()
+  public function getAllStudents($perPage = 10)
   {
-    return $this->repository->getAll();
+    return $this->repository->getAll($perPage);
   }
 
   // Mencari satu data siswa spesifik berdasarkan ID

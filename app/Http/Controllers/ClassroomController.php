@@ -14,27 +14,27 @@ class ClassroomController extends Controller
     // Mengambil semua kelas beserta relasi guru dan siswanya
     public function index()
     {
-        return Inertia::render('Classrooms/Index', ['classrooms' => ClassroomResource::collection($this->service->getClassroomsWithRelations())]);
+        return Inertia::render('Classrooms/Index', ['classrooms' => ClassroomResource::collection($this->service->getClassroomsWithRelations(5))]);
     }
 
     // Menyimpan data kelas baru
     public function store(ClassroomRequest $request)
     {
         $this->service->createClassroom($request->validated());
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Kelas berhasil ditambahkan!');
     }
 
     // Memperbarui data kelas berdasarkan ID
     public function update(ClassroomRequest $request, $id)
     {
         $this->service->updateClassroom($id, $request->validated());
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Kelas berhasil diperbarui!');
     }
 
     // Menghapus data kelas berdasarkan ID
     public function destroy($id)
     {
         $this->service->deleteClassroom($id);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Kelas berhasil dihapus!');
     }
 }

@@ -27,10 +27,10 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 
-        // Generate 5 Kelas, masing-masing 3 Guru dan 15 Siswa
-        Classroom::factory(5)
-            ->has(Teacher::factory()->count(3))
-            ->has(Student::factory()->count(15))
+        // Generate 5 Kelas, masing-masing 20 Guru dan 50 Siswa
+        Classroom::factory(10)
+            ->has(Teacher::factory()->count(20))
+            ->has(Student::factory()->count(50))
             ->create();
     }
 }

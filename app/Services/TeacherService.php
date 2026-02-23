@@ -9,9 +9,9 @@ class TeacherService
   public function __construct(protected TeacherRepositoryInterface $repository) {}
 
   // Mengambil semua data guru beserta nama kelas tempat mengajar
-  public function getAllTeachers()
+  public function getAllTeachers($perPage = 10)
   {
-    return $this->repository->getAll();
+    return $this->repository->getAll($perPage);
   }
 
   // Mencari satu data guru spesifik berdasarkan ID

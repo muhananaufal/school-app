@@ -23,20 +23,20 @@ class StudentController extends Controller
     public function store(StudentRequest $request)
     {
         $this->service->createStudent($request->validated());
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Siswa berhasil ditambahkan!');
     }
 
     // Memperbarui data siswa berdasarkan ID
     public function update(StudentRequest $request, $id)
     {
         $this->service->updateStudent($id, $request->validated());
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Siswa berhasil diperbarui!');
     }
 
     // Menghapus data siswa berdasarkan ID
     public function destroy($id)
     {
         $this->service->deleteStudent($id);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Siswa berhasil dihapus!');
     }
 }
