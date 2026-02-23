@@ -1,0 +1,41 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Models\Teacher;
+use App\Repositories\Contracts\TeacherRepositoryInterface;
+
+class TeacherRepository implements TeacherRepositoryInterface
+{
+  // Mengambil semua data guru beserta nama kelas tempat mengajar
+  public function getAll()
+  {
+    return Teacher::with('classroom')->get();
+  }
+
+  // Mencari satu data guru spesifik berdasarkan ID
+  public function findById($id)
+  {
+    return Teacher::findOrFail($id);
+  }
+
+  // Menyimpan data guru baru
+  public function create(array $data)
+  {
+    return Teacher::create($data);
+  }
+
+  // Memperbarui data guru berdasarkan ID
+  public function update($id, array $data)
+  {
+    $teacher = $this->findById($id);
+    $teacher->update($data);
+    return $teacher;
+  }
+
+  // Menghapus data guru berdasarkan ID
+  public function delete($id)
+  {
+    return $this->findById($id)->delete();
+  }
+}
