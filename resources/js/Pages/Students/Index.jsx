@@ -134,7 +134,7 @@ export default function StudentIndex({ auth, students, classrooms }) {
                                             onClick={() =>
                                                 confirmDelete(
                                                     route(
-                                                        "classrooms.destroy",
+                                                        "students.destroy",
                                                         student.id
                                                     )
                                                 )
