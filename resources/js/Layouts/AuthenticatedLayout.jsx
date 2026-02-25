@@ -196,7 +196,7 @@ export default function AuthenticatedLayout({ header, children }) {
                             href={route("parents.index")}
                             active={route().current("parents.*")}
                         >
-                            Siswa
+                            Orang Tua
                         </ResponsiveNavLink>{" "}
                     </div>
 
