@@ -30,7 +30,7 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-export default function StudentIndex({ auth, students, classrooms, parents }) {
+export default function ParentsIndex({ auth, students, parents }) {
     const [isOpen, setIsOpen] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -43,15 +43,14 @@ export default function StudentIndex({ auth, students, classrooms, parents }) {
         put,
         delete: destroy,
         errors,
-    } = useForm({ nis: "", name: "", gender: "", classroom_id: "" });
+    } = useForm({ phone: "", name: "", student_id: "" });
 
-    const openModal = (student = null) => {
-        setEditingId(student ? student.id : null);
+    const openModal = (parent = null) => {
+        setEditingId(parent ? parent.id : null);
         setData({
-            nis: student?.nis || "",
-            name: student?.name || "",
-            gender: student?.gender || "",
-            classroom_id: student?.classroom_id || "",
+            phone: parent?.phone || "",
+            name: parent?.name || "",
+            student_id: parent?.student_id || "",
         });
         setIsOpen(true);
     };
@@ -60,13 +59,13 @@ export default function StudentIndex({ auth, students, classrooms, parents }) {
         e.preventDefault();
         const action = editingId ? put : post;
         const routeName = editingId
-            ? route("students.update", editingId)
-            : route("students.store");
+            ? route("parents.update", editingId)
+            : route("parents.store");
         action(routeName, { onSuccess: () => setIsOpen(false) });
     };
 
-    const getClassroomName = (id) =>
-        classrooms?.data?.find((c) => c.id === id)?.name || "-";
+    const getStudentsName = (id) =>
+        students?.data?.find((c) => c.id == id)?.name || "-";
 
     const confirmDelete = (url) => {
         setDeleteUrl(url);
@@ -81,56 +80,49 @@ export default function StudentIndex({ auth, students, classrooms, parents }) {
         }
     };
 
+    console.log(parents);
+    console.log(students);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={
                 <h2 className="font-semibold text-xl leading-tight">
-                    Kelola Siswa
+                    Kelola Orang Tua
                 </h2>
             }
         >
-            <Head title="Students" />
+            <Head title="Parents" />
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
                 <Button
                     onClick={() => openModal()}
                     className="mb-4 ml-4 md:ml-0"
                 >
-                    Tambah Siswa
+                    Tambah Orang Tua
                 </Button>
                 <div className="bg-white p-6 rounded-lg shadow border border-slate-200">
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>NIS</TableHead>
-                                <TableHead>Nama Siswa</TableHead>
-                                <TableHead>Gender</TableHead>
-                                <TableHead>Kelas</TableHead>
-                                <TableHead>Orang Tua</TableHead>
+                                <TableHead>Nama</TableHead>
+                                <TableHead>Nomor HP</TableHead>
+                                <TableHead>Wali Dari</TableHead>
                                 <TableHead>Aksi</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {students?.data?.map((student) => (
-                                <TableRow key={student.id}>
-                                    <TableCell>{student.nis}</TableCell>
-                                    <TableCell>{student.name}</TableCell>
+                            {parents?.data?.map((parent) => (
+                                <TableRow key={parent.id}>
+                                    <TableCell>{parent.name}</TableCell>
+                                    <TableCell>{parent.phone}</TableCell>
                                     <TableCell>
-                                        {student.gender === "L"
-                                            ? "Laki-laki"
-                                            : "Perempuan"}
-                                    </TableCell>
-                                    <TableCell>
-                                        {getClassroomName(student.classroom_id)}
-                                    </TableCell>{" "}
-                                    <TableCell>
-                                        {student.parents?.name || "-"}{" "}
+                                        {getStudentsName(parent.student_id)}
                                     </TableCell>
                                     <TableCell>
                                         <Button
                                             variant="outline"
                                             size="sm"
-                                            onClick={() => openModal(student)}
+                                            onClick={() => openModal(parent)}
                                             className="mr-2"
                                         >
                                             Edit
@@ -141,8 +133,8 @@ export default function StudentIndex({ auth, students, classrooms, parents }) {
                                             onClick={() =>
                                                 confirmDelete(
                                                     route(
-                                                        "students.destroy",
-                                                        student.id
+                                                        "parents.destroy",
+                                                        parent.id
                                                     )
                                                 )
                                             }
@@ -154,7 +146,7 @@ export default function StudentIndex({ auth, students, classrooms, parents }) {
                             ))}
                         </TableBody>
                     </Table>
-                    <Pagination links={students.meta.links} />
+                    <Pagination links={parents.meta.links} />
                 </div>
             </div>
 
@@ -163,26 +155,13 @@ export default function StudentIndex({ auth, students, classrooms, parents }) {
                     <DialogHeader>
                         <DialogTitle>
                             {editingId
-                                ? "Edit Data Siswa"
-                                : "Tambah Data Siswa"}
+                                ? "Edit Data Orang Tua"
+                                : "Tambah Data Orang Tua"}
                         </DialogTitle>
                     </DialogHeader>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
-                            <Label htmlFor="nis">NIS</Label>
-                            <Input
-                                id="nis"
-                                value={data.nis}
-                                onChange={(e) => setData("nis", e.target.value)}
-                            />
-                            {errors.nis && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {errors.nis}
-                                </p>
-                            )}
-                        </div>
-                        <div>
-                            <Label htmlFor="name">Nama Siswa</Label>
+                            <Label htmlFor="name">Nama Orang Tua</Label>
                             <Input
                                 id="name"
                                 value={data.name}
@@ -197,45 +176,40 @@ export default function StudentIndex({ auth, students, classrooms, parents }) {
                             )}
                         </div>
                         <div>
-                            <Label htmlFor="gender">Jenis Kelamin</Label>
-                            <select
-                                id="gender"
-                                value={data.gender}
+                            <Label htmlFor="phone">Nomor HP</Label>
+                            <Input
+                                id="phone"
+                                value={data.phone}
                                 onChange={(e) =>
-                                    setData("gender", e.target.value)
+                                    setData("phone", e.target.value)
                                 }
-                                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                            >
-                                <option value="">-- Pilih Gender --</option>
-                                <option value="L">Laki-laki</option>
-                                <option value="P">Perempuan</option>
-                            </select>
-                            {errors.gender && (
+                            />
+                            {errors.phone && (
                                 <p className="text-red-500 text-sm mt-1">
-                                    {errors.gender}
+                                    {errors.phone}
                                 </p>
                             )}
                         </div>
                         <div>
-                            <Label htmlFor="classroom_id">Pilih Kelas</Label>
+                            <Label htmlFor="student_id">Pilih Siswa</Label>
                             <select
-                                id="classroom_id"
-                                value={data.classroom_id}
+                                id="student_id"
+                                value={data.student_id}
                                 onChange={(e) =>
-                                    setData("classroom_id", e.target.value)
+                                    setData("student_id", e.target.value)
                                 }
                                 className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                             >
-                                <option value="">-- Pilih Kelas --</option>
-                                {classrooms?.data?.map((cls) => (
-                                    <option key={cls.id} value={cls.id}>
-                                        {cls.name}
+                                <option value="">-- Pilih Siswa --</option>
+                                {students?.data?.map((std) => (
+                                    <option key={std.id} value={std.id}>
+                                        {std.name}
                                     </option>
                                 ))}
                             </select>
-                            {errors.classroom_id && (
+                            {errors.student_id && (
                                 <p className="text-red-500 text-sm mt-1">
-                                    {errors.classroom_id}
+                                    {errors.student_id}
                                 </p>
                             )}
                         </div>

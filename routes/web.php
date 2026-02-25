@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\ParentsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -33,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('classrooms', ClassroomController::class);
     Route::resource('teachers', TeacherController::class);
     Route::resource('students', StudentController::class);
+    Route::resource('parents', ParentsController::class);
 });
 
 require __DIR__ . '/auth.php';

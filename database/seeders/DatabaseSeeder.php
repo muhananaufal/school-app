@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Classroom;
+use App\Models\Parents;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -30,7 +31,7 @@ class DatabaseSeeder extends Seeder
         // Generate 5 Kelas, masing-masing 20 Guru dan 50 Siswa
         Classroom::factory(10)
             ->has(Teacher::factory()->count(20))
-            ->has(Student::factory()->count(50))
+            ->has(Student::factory()->count(50)->has(Parents::factory()->count(1)))
             ->create();
     }
 }

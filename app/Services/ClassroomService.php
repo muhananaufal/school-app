@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\ClassroomRepositoryInterface;
+use App\Repositories\Contracts\RelationsSchoolRepositoryInterface;
 
 class ClassroomService
 {
-  public function __construct(protected ClassroomRepositoryInterface $repository) {}
+  public function __construct(protected RelationsSchoolRepositoryInterface $repository) {}
 
   // Mengambil semua data kelas murni tanpa relasi
   public function getAllClassrooms($perPage = 3)

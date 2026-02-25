@@ -31,7 +31,11 @@ export default function AuthenticatedLayout({ header, children }) {
                         <div className="flex">
                             <div className="flex shrink-0 items-center">
                                 <Link href="/">
-                                    <img src="/favicon.png" className="w-9" alt="Logo"/>
+                                    <img
+                                        src="/favicon.png"
+                                        className="w-9"
+                                        alt="Logo"
+                                    />
                                 </Link>
                             </div>
 
@@ -59,6 +63,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                     active={route().current("students.*")}
                                 >
                                     Siswa
+                                </NavLink>
+                                <NavLink
+                                    href={route("parents.index")}
+                                    active={route().current("parents.*")}
+                                >
+                                    Orang Tua
                                 </NavLink>{" "}
                             </div>
                         </div>
@@ -179,6 +189,12 @@ export default function AuthenticatedLayout({ header, children }) {
                         <ResponsiveNavLink
                             href={route("students.index")}
                             active={route().current("students.*")}
+                        >
+                            Siswa
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route("parents.index")}
+                            active={route().current("parents.*")}
                         >
                             Siswa
                         </ResponsiveNavLink>{" "}

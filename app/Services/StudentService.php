@@ -2,17 +2,24 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\BaseRepositoryInterface;
+use App\Repositories\Contracts\RelationsSchoolRepositoryInterface;
 
 class StudentService
 {
-  public function __construct(protected BaseRepositoryInterface $repository) {}
+  public function __construct(protected RelationsSchoolRepositoryInterface $repository) {}
 
   // Mengambil semua data siswa beserta nama kelasnya
-  public function getAllStudents($perPage = 10)
+  public function getAllStudents()
   {
-    return $this->repository->getAll($perPage);
+    return $this->repository->getAll();
   }
+
+  // Mengambil semua siswa beserta relasi orang tua
+  public function getStudentWithRelations($perPage = 5)
+  {
+    return $this->repository->getWithRelations($perPage);
+  }
+
 
   // Mencari satu data siswa spesifik berdasarkan ID
   public function findById($id)

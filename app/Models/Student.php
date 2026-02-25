@@ -15,4 +15,9 @@ class Student extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+
+    public function parents()
+    {
+        return $this->hasOne(Parents::class);
+    }
 }

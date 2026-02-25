@@ -3,10 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Classroom;
-use App\Repositories\Contracts\ClassroomRepositoryInterface;
+use App\Repositories\Contracts\RelationsSchoolRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class ClassroomRepository implements ClassroomRepositoryInterface
+class ClassroomRepository implements RelationsSchoolRepositoryInterface
 {
   // Mengambil semua data kelas murni tanpa relasi
   public function getAll()

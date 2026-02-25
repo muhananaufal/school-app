@@ -3,16 +3,23 @@
 namespace App\Repositories;
 
 use App\Models\Student;
-use App\Repositories\Contracts\BaseRepositoryInterface;
+use App\Repositories\Contracts\RelationsSchoolRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class StudentRepository implements BaseRepositoryInterface
+class StudentRepository implements RelationsSchoolRepositoryInterface
 {
   // Mengambil semua data siswa beserta nama kelasnya
-  public function getAll(int $perPage = 10): LengthAwarePaginator
+  public function getAll()
   {
-    return Student::with('classroom')->latest()->paginate($perPage);
+    return Student::orderBy('created_at', 'desc')->get();
   }
+
+  // Mengambil semua siswa beserta relasi orang tua
+  public function getWithRelations(int $perPage = 10): LengthAwarePaginator
+  {
+    return Student::with(['parents'])->latest()->paginate($perPage);
+  }
+
 
   // Mencari satu data siswa spesifik berdasarkan ID
   public function findById($id)
