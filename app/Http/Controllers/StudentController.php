@@ -16,7 +16,7 @@ class StudentController extends Controller
     // Mengambil semua data siswa beserta nama kelasnya
     public function index()
     {
-        return Inertia::render('Students/Index', ['students' => StudentResource::collection($this->service->getStudentWithRelations(5)), 'classrooms' => ClassroomResource::collection($this->classroomService->getAllClassrooms())]);
+        return Inertia::render('Students/Index', ['students' => StudentResource::collection($this->service->getStudentWithRelations(10)), 'classrooms' => ClassroomResource::collection($this->classroomService->getAllClassrooms())]);
     }
 
     // Menyimpan data siswa baru

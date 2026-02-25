@@ -15,7 +15,7 @@ class StudentService
   }
 
   // Mengambil semua siswa beserta relasi orang tua
-  public function getStudentWithRelations($perPage = 5)
+  public function getStudentWithRelations($perPage = 10)
   {
     return $this->repository->getWithRelations($perPage);
   }
