@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ParentsRequest extends FormRequest
 {
@@ -21,10 +22,15 @@ class ParentsRequest extends FormRequest
      */
     public function rules(): array
     {
+        $parentId = $this->route('parent') ?? $this->route('id');
         return [
             'name' => 'required|string|max:255',
             'phone' => 'required|string|max:255',
-            'student_id' => 'required|exists:students,id',
+            'student_id' => [
+                'required',
+                'exists:students,id',
+                Rule::unique('parents', 'student_id')->ignore($parentId),
+            ],
         ];
     }
 }
