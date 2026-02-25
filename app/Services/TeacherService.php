@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\TeacherRepositoryInterface;
+use App\Repositories\Contracts\BaseRepositoryInterface;
 
 class TeacherService
 {
-  public function __construct(protected TeacherRepositoryInterface $repository) {}
+  public function __construct(protected BaseRepositoryInterface $repository) {}
 
   // Mengambil semua data guru beserta nama kelas tempat mengajar
   public function getAllTeachers($perPage = 10)

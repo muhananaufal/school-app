@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
-use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Repositories\Contracts\BaseRepositoryInterface;
 
 class StudentService
 {
-  public function __construct(protected StudentRepositoryInterface $repository) {}
+  public function __construct(protected BaseRepositoryInterface $repository) {}
 
   // Mengambil semua data siswa beserta nama kelasnya
   public function getAllStudents($perPage = 10)

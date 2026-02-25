@@ -3,10 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Student;
-use App\Repositories\Contracts\StudentRepositoryInterface;
+use App\Repositories\Contracts\BaseRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class StudentRepository implements StudentRepositoryInterface
+class StudentRepository implements BaseRepositoryInterface
 {
   // Mengambil semua data siswa beserta nama kelasnya
   public function getAll(int $perPage = 10): LengthAwarePaginator

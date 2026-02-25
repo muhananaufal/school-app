@@ -3,10 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\Teacher;
-use App\Repositories\Contracts\TeacherRepositoryInterface;
+use App\Repositories\Contracts\BaseRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class TeacherRepository implements TeacherRepositoryInterface
+class TeacherRepository implements BaseRepositoryInterface
 {
   // Mengambil semua data guru beserta nama kelas tempat mengajar
   public function getAll(int $perPage = 10): LengthAwarePaginator
